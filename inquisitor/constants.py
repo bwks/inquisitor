@@ -1,7 +1,7 @@
 import os
 
 BASE_DIR = os.path.join(os.path.dirname(__file__))
-TEXTFSM_TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+TEXTFSM_TEMPLATES_DIR = os.path.join(BASE_DIR, 'textfsm-templates')
 
 cisco_ios_show_ip_arp_template = 'cisco_ios_show_ip_arp.template'
 cisco_ios_show_ip_route_template = 'cisco_ios_show_ip_route.template'

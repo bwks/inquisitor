@@ -1,5 +1,5 @@
-from .loaders import load_template
-from .constants import (
+from inquisitor.loaders import load_template
+from inquisitor.constants import (
     cisco_ios_show_ip_arp_template,
     cisco_ios_show_ip_route_template,
     cisco_ios_dir_template,
@@ -83,6 +83,12 @@ def show_vrf_to_dict(data):
 
 
 def show_version_to_dict(data):
+    """
+    Convert a textfsm data structure to a dictionary
+    :param data: textfsm data structure
+      [['15.6(1)T', 'Bootstrap', 'iosv', '19 minutes', '/vios-adventerprisek9-m', [], ['9F5AD57IY1430DLTI5483'], '0x0']]
+    :return: Dict of data
+    """
     template = load_template(cisco_ios_show_version_template)
     version_list = template.ParseText(data)[0]
 
@@ -96,6 +102,13 @@ def show_version_to_dict(data):
 
 
 def show_interfaces_to_dict(data):
+    """
+    Convert a textfsm data structure to a dictionary
+    :param data: textfsm data structure
+      [['GigabitEthernet0/0', 'up', 'up', 'iGbE', '5254.0023.79f0', '5254.0023.79f0', 'vagrant-management', '192.168.121.221/24', '1500', 'Auto Duplex', 'Auto Speed', '1000000 Kbit', '10 usec', 'ARPA', 'fifo', '1000', '1000']]
+    :return: Dict of data
+    """
+
     template = load_template(cisco_ios_show_interfaces_template)
     interface_list = template.ParseText(data)
 
@@ -105,11 +118,11 @@ def show_interfaces_to_dict(data):
             i[0]: {
                 'status': i[1],
                 'description': i[6],
-                'ipv4_address': i[7],
                 'mac_address': i[4],
+                'ipv4_address': i[7],
                 'mtu': i[8],
-                'speed': i[10],
                 'duplex': i[9],
+                'speed': i[10],
                 'bandwidth': i[11],
                 'delay': i[12],
             }
