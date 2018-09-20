@@ -1,0 +1,6 @@
+Value PROCESS (\S+)
+Value NAME (\S+)
+
+Start
+  ^\d+\s+${PROCESS}\s${NAME} -> Record
+  ^\d+\s+${PROCESS}$$ -> Record
