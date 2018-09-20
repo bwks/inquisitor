@@ -21,3 +21,11 @@ def load_config(location='~/.config'):
     except FileNotFoundError:
         config = {}
     return config
+
+
+def load_host_data(filename='hosts.txt', location='./'):
+    try:
+        with open(f'{location}/{filename}', 'r') as f:
+            return [i.strip() for i in f.readlines()]
+    except FileNotFoundError:
+        raise FileNotFoundError(f'File not found: {location}/{filename}')

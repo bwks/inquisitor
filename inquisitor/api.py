@@ -8,6 +8,7 @@ from netconnect.cisco import CiscoDriver
 from netconnect.helpers import clean_output
 
 from .utils import jprint
+from .command_sets import cisco_ios_data_commands
 from .translators import (
     show_ip_arp_to_dict,
     show_ip_route_static_to_dict,
@@ -17,24 +18,11 @@ from .translators import (
     show_version_to_dict,
     show_interfaces_to_dict,
 )
-from .loaders import load_config
+from .loaders import load_config, load_host_data
 
 logger = logging.getLogger(__name__)
 
-with open('hosts.txt', 'r') as f:
-    hosts = [i.strip() for i in f.readlines()]
-
-hosts = hosts[:1]
-
-cisco_router_commands = [
-    'show version',
-    'show interfaces',
-    'show vrf',
-    'show ip protocols summary',
-    'dir',
-    'show ip route static',
-    'show ip arp',
-]
+hosts = load_host_data()[:1]
 
 config = load_config()
 all_host_data = {}
@@ -44,7 +32,8 @@ def worker(host, command_set):
     time_now = time.time()
     raw_command_results = []
 
-    with CiscoDriver(host, config['username'], config['password'], disable_host_key_checking=True) as dev:
+    with CiscoDriver(host, config['username'], config['password'],
+                     disable_host_key_checking=True) as dev:
         result = dev.send_commands(command_set)
         raw_command_results = raw_command_results + result
 
@@ -85,7 +74,7 @@ def worker(host, command_set):
 def runner(hosts, pool_size=15):
     pool = Pool(pool_size)
     for host in hosts:
-        pool.apply_async(worker, (host, cisco_router_commands))
+        pool.apply_async(worker, (host, cisco_ios_data_commands))
     pool.close()
     pool.join()
 
