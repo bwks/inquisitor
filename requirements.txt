@@ -1,2 +1,1 @@
 textfsm
-git+https://github.com/bobthebutcher/netconnect.git@master#egg=netconnect

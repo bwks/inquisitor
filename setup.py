@@ -19,10 +19,7 @@ setup(
     packages=find_packages(),
 
     install_requires=[
-        'netconnect==0.4.1'
-    ],
-    dependency_links=[
-        'git+https://github.com/bobthebutcher/netconnect.git#egg=netconnect-0.4.1',
+        'textfsm'
     ],
     entry_points={
         'console_scripts': [

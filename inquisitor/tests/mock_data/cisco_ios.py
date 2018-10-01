@@ -1,6 +1,7 @@
 mock_show_vrf = '''
   Name                             Default RD            Protocols   Interfaces
   MGMT                             <not set>             ipv4        Gi0/0
+  test-vrf                         65000:100             ipv4        Gi0/1
 '''
 
 mock_show_ip_arp = '''
