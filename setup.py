@@ -21,10 +21,4 @@ setup(
     install_requires=[
         'textfsm'
     ],
-    entry_points={
-        'console_scripts': [
-            'inquisitor=inquisitor.api:main',
-        ]
-    },
-
 )
