@@ -30,7 +30,7 @@ git clone https://github.com/networktocode/ntc-templates.git
 ```python
 from inquisitor.constants import CISCO_IOS_TEMPLATE_MAP
 from inquisitor.api import data_dict
-
+from inquisitor.utils import jprint
 
 vrf_data = '''
   Name                             Default RD            Protocols   Interfaces
@@ -38,16 +38,30 @@ vrf_data = '''
   test-vrf                         65000:100             ipv4        Gi0/1
 '''
 
-data_dict(template=CISCO_IOS_TEMPLATE_MAP['vrfs'], data_type='vrfs', raw_data=vrf_data)
+vrfs = data_dict(template=CISCO_IOS_TEMPLATE_MAP['vrfs'], data_type='vrfs', raw_data=vrf_data)
 
-{'vrfs': [{'name': 'MGMT',
-   'default_rd': '<not set>',
-   'protocols': 'ipv4',
-   'interfaces': ['Gi0/0']},
-  {'name': 'test-vrf',
-   'default_rd': '65000:100',
-   'protocols': 'ipv4',
-   'interfaces': ['Gi0/1']}]}
+jprint(vrfs)
+
+{
+  "vrfs": [
+    {
+      "name": "MGMT",
+      "default_rd": "<not set>",
+      "protocols": "ipv4",
+      "interfaces": [
+        "Gi0/0"
+      ]
+    },
+    {
+      "name": "test-vrf",
+      "default_rd": "65000:100",
+      "protocols": "ipv4",
+      "interfaces": [
+        "Gi0/1"
+      ]
+    }
+  ]
+}
 ```
 
 
